@@ -7,7 +7,7 @@ class DevHost:
 class Databases:
     """Properties for the MongoDB clusters"""
 
-    test_uri = 'mongodb+srv://refbot:Season9ofLoLsucks@ll-test-csrib.mongodb.net/test?retryWrites=true'
+    test_uri = 'mongodb+srv://refbot:RefBotwasbornin2017@ll-test-csrib.mongodb.net/test?retryWrites=true'
 
 class RiotApi:
     """Properties for the Riot Games API"""
@@ -15,4 +15,5 @@ class RiotApi:
     api_key = 'RGAPI-77af8378-4dd2-471b-87bb-82200dbfcf9a'
 
     na_url = 'https://na1.api.riotgames.com'
-                
+
+# testing testing testing 123
