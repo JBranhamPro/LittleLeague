@@ -4,7 +4,7 @@ class Summoner(object):
     """docstring for Summoner"""
     def __init__(self, name):
         super(Summoner, self).__init__()
-        
+
         details = RiotApi.get_summoner_by_name(name)
 
         self.account_id = details['account_id']
@@ -16,7 +16,6 @@ class Summoner(object):
         self.rank_value = 150
 
     def get_data(self):
-
         data = {}
         data['account_id'] = self.account_id
         data['summoner_level'] = self.level
@@ -33,7 +32,6 @@ class Summoner(object):
         return data
 
     def evaluate_rank(self, rank_data=None):
-
         if not rank_data:
             rank_data = RiotApi.get_rank_data(self.summoner_id)
 
