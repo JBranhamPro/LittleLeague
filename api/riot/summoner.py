@@ -1,19 +1,21 @@
-from .riotApi import RiotApi
+from .riotapi import RiotApi
 
 class Summoner(object):
     """docstring for Summoner"""
-    def __init__(self, name):
+    def __init__(self, name=None):
         super(Summoner, self).__init__()
 
-        details = RiotApi.get_summoner_by_name(name)
+        if name:
+            details = RiotApi.get_summoner_by_name(name)
 
-        self.account_id = details['account_id']
-        self.level = details['summoner_level']
-        self.name = details['summoner_name']
-        self.profile_icon = details['profile_icon_id']
-        self.puuid = details['puuid']
-        self.summoner_id = details['summoner_id']
-        self.rank_value = 150
+            self._id = details['summoner_id']
+            self.account_id = details['account_id']
+            self.current_game = None
+            self.level = details['summoner_level']
+            self.name = details['summoner_name']
+            self.profile_icon = details['profile_icon_id']
+            self.puuid = details['puuid']
+            self.rank_value = 150
 
     def get_data(self):
         data = {}
@@ -22,9 +24,9 @@ class Summoner(object):
         data['summoner_name'] = self.name
         data['profile_icon_id'] = self.profile_icon
         data['puuid'] = self.puuid
-        data['summoner_id'] = self.summoner_id
+        data['summoner_id'] = self._id
 
-        rank_data = RiotApi.get_rank_data(self.summoner_id)
+        rank_data = RiotApi.get_rank_data(self._id)
         data['rank_data'] = rank_data
         
         data['rank_value'] = self.evaluate_rank(rank_data=rank_data)
@@ -33,7 +35,7 @@ class Summoner(object):
 
     def evaluate_rank(self, rank_data=None):
         if not rank_data:
-            rank_data = RiotApi.get_rank_data(self.summoner_id)
+            rank_data = RiotApi.get_rank_data(self._id)
 
         leagues = {}
 
@@ -86,3 +88,6 @@ class Summoner(object):
         self.rank_value = rank_value
 
         return rank_value
+
+    def set_current_game(self, game):
+        self.current_game = game

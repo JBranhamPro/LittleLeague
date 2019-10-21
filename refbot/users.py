@@ -9,6 +9,7 @@ def get(username):
     else:
         return user
 
+
 class User(object):
     """docstring for User"""
     def __init__(self, name):
@@ -30,4 +31,4 @@ class User(object):
             return False, f"{self.name} is already in a game. Please !bye out and try again."
         else:
             self.current_game = game
-            return True, f"{self.name} successfully added to {game.name}. "
+            return True, f"{self.name} successfully added to {game.name}."

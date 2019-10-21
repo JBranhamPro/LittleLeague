@@ -2,6 +2,7 @@ from flask_restful import Resource
 # from riot.riotApi import RiotApi
 from riot.summoner import Summoner
 
+
 class HelloWorld(Resource):
 
     endpoint = '/hello/'
@@ -9,6 +10,18 @@ class HelloWorld(Resource):
 
     def get(self):
         return {'hello': 'world'}
+
+
+class Summoner(Resource):
+
+    endpoint = '/summoner/<string:summoner_name>/'
+
+    def get(self, summoner_name):
+
+        summoner = Summoner(summoner_name)
+
+        return summoner.get_data()
+
 
 class Test(Resource):
 

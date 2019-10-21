@@ -1,6 +1,6 @@
 import logging
 import requests
-import properties as props
+import config as props
 
 LOGGER = logging.getLogger('flask_logger')
 

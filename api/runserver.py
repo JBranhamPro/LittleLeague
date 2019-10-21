@@ -1,8 +1,10 @@
-from concurrent_log_handler import ConcurrentRotatingFileHandler
 import logging
+
+from concurrent_log_handler import ConcurrentRotatingFileHandler
 from flask import Flask
 from flask_restful import Api, Resource
-from . import properties as props
+
+from . import config as props
 from . import resources
 
 LOGGER = logging.getLogger('flask_logger')
