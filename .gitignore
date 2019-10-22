@@ -60,6 +60,7 @@ db.sqlite3
 # Flask stuff:
 api/properties.py
 */properties.py
+*/config.py
 instance/
 .webassets-cache
 
