@@ -1,3 +1,5 @@
+from random import randint
+
 class Game():
     """LittleLeague Game"""
     def __init__(self, unique_id):
@@ -5,9 +7,9 @@ class Game():
         self._id = unique_id
         self.host = None
         self.start_time = None
-        self.teams = {}
+        self.teams = []
         self.summoners = []
-        self.bench = {}
+        self.bench = []
 
     def add_summoner(self, summoner):
         list_of_summoners = list(self.summoners.keys())
@@ -34,6 +36,26 @@ class Game():
                 return False, f"{team.name} is already an active team in this game."
         teams[team.name] = team
         return True, f"{team.name} has been added as active team in this game."
+
+    def random_draft(self):
+        draft_pool = self.summoners.copy()
+        team_one = self.teams[0]
+        team_two = self.teams[1]
+        i = 0
+        while i < 10:
+            summoner = draft_pool[randint(0, len(draft_pool) - 1)]
+            if len(team_one.summoners) <= 5:
+                team_one.add_summoner(summoner)
+            else:
+                team_two.add_summoner(summoner)
+            draft_pool.remove(summoner)
+            i += 1
+        team_one_summoners = [summoner.name for summoner in team_one.summoners]
+        team_two_summoners = [summoner.name for summoner in team_two.summoners]
+        return team_one_summoners, team_two_summoners
+
+    def ranked_draft(self):
+        pass
 
     def summoner_in_game(self, summoner):
         current_summoners = [summoner._id for summoner in summoners]
