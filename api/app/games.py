@@ -29,13 +29,13 @@ class Game():
         summoner.set_current_game(self)
         return True, f"{summoner.name} was added to this game."
 
-    def add_team(self, team):
+    def add_to_team(self, team):
         list_of_teams = list(self.teams.values())
         for active_team in list_of_teams:
             if team.summoners == active_team.summoners:
                 return False, f"{team.name} is already an active team in this game."
         teams[team.name] = team
-        return True, f"{team.name} has been added as active team in this game."
+        return True, f"{team.name} has been added as an active team in this game."
 
     def random_draft(self):
         draft_pool = self.summoners.copy()
@@ -55,7 +55,7 @@ class Game():
         return team_one_summoners, team_two_summoners
 
     def ranked_draft(self):
-        pass
+        return "This functionality has not been added yet."
 
     def summoner_in_game(self, summoner):
         current_summoners = [summoner._id for summoner in summoners]

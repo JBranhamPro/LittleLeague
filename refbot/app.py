@@ -7,7 +7,7 @@ import discord
 from discord.ext import commands
 
 #from games import Game
-import config as props
+import config
 import users
 
 LOGGER = logging.getLogger('refbot_logger')
@@ -114,4 +114,4 @@ async def rollcall(context):
     await context.message.channel.send(response)
 
 
-REFBOT.run(props.Discord.bot_token)
+REFBOT.run(config.Discord.bot_token)
