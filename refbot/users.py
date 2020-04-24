@@ -2,6 +2,7 @@ USERS = {}
 
 def get(username):
     user = USERS.get(username)
+    
     if user is None:
         user = User(username)
         USERS[username] = user
@@ -11,7 +12,7 @@ def get(username):
 
 
 class User(object):
-    """docstring for User"""
+    """Discord User"""
     def __init__(self, name):
         super(User, self).__init__()
         self.current_game = None

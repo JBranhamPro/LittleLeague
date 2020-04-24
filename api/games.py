@@ -1,7 +1,7 @@
 from random import randint
 
 class Game():
-    """LittleLeague Game"""
+    """LittleLeague Game Object"""
     def __init__(self, unique_id):
         super(Game, self).__init__()
         self._id = unique_id
@@ -41,6 +41,7 @@ class Game():
         draft_pool = self.summoners.copy()
         team_one = self.teams[0]
         team_two = self.teams[1]
+        
         i = 0
         while i < 10:
             summoner = draft_pool[randint(0, len(draft_pool) - 1)]
@@ -50,8 +51,10 @@ class Game():
                 team_two.add_summoner(summoner)
             draft_pool.remove(summoner)
             i += 1
+        
         team_one_summoners = [summoner.name for summoner in team_one.summoners]
         team_two_summoners = [summoner.name for summoner in team_two.summoners]
+        
         return team_one_summoners, team_two_summoners
 
     def ranked_draft(self):
@@ -59,6 +62,7 @@ class Game():
 
     def summoner_in_game(self, summoner):
         current_summoners = [summoner._id for summoner in summoners]
+        
         if summoner._id in current_summoners:
             return True
         else:

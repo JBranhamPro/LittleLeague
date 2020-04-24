@@ -114,4 +114,4 @@ async def rollcall(context):
     await context.message.channel.send(response)
 
 
-REFBOT.run(config.Discord.bot_token)
+# REFBOT.run(config.Discord.bot_token)
