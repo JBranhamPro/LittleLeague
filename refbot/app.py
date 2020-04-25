@@ -1,7 +1,9 @@
 import asyncio
-import logging
 from datetime import datetime
+import logging
+import json
 
+import requests
 from logging.handlers import RotatingFileHandler
 import discord
 from discord.ext import commands
@@ -21,13 +23,74 @@ LOGGER.info("Logger initialized and running.")
 
 REFBOT = commands.Bot(command_prefix="!")
 
-ACTIVE_PLAYERS = []
+LL_API_URL = 'http://127.0.0.1/'
+
+
+def GET_SUMMONER_ID(summoner_name):
+    summoners_url = LL_API_URL + 'summoners/'
+    get_summoner_data = requests.get(summoners_url, data={'summoner_name': summoner_name})
+
+    if get_summoner_data.status_code == 500:
+        LOGGER.error(f"There was an error attempting to retrieve the ID of {summoner_name}")
+        summoner_id = None
+
+    elif get_summoner_data.status_code == 404:
+        LOGGER.error(f"Data for {summoner_name} could not be found.")
+        summoner_id = None
+
+    else:
+        summoner_data = get_summoner_data.json()
+        summoner_data = json.loads(summoner_data)
+        summoner_id = summoner_data['_id']
+    
+    return summoner_id
 
 
 @REFBOT.command(pass_context=True)
 async def aye(context, summoner_name=None):
     username = context.message.author.name
-    #user = users.get(username)
+    user_id = context.message.author.id
+
+    if summoner_name:
+        summoner_id = GET_SUMMONER_ID
+    else:
+        summoner_id = None
+
+    discord_users_url = LL_API_URL + 'discord/users/'
+    get_discord_user = requests.get(discord_users_url, data={'user_id': user_id})
+
+    if get_discord_user.status_code == 500:
+        response = "Data could not be returned from the Little League Gateway. Check API status."
+        await context.message.channel.send(response)
+        return
+    
+    elif get_discord_user.status_code == 404:
+        post_discord_user = requests.post(discord_users_url, data={'user_id': user_id})
+        
+        if post_discord_user.status_code == 500:
+            response = f"{username} could not be added to the list of Discord users."
+            await context.message.channel.send(response)
+            return
+
+    else:
+        discord_user_data = get_discord_user.json()
+        discord_user_data = json.loads(discord_user_data)
+        discord_summoner_name = discord_user_data['summoner']
+        discord_summoner_id = GET_SUMMONER_ID(discord_summoner)
+
+        if (summoner_name and summoner_name != discord_summoner_name)
+        and discord_summoner_id != summoner_id:
+            pass
+
+    summoners_url = LL_API_URL + 'summoners/'
+    get_summoner_data = requests.get(summoners_url, data={'summoner_name': summoner_name})
+    summoner_data = get_summoner_data.json()
+    summoner_data = json.loads(summoner_data)
+    summoner_id = summoner_data['_id']
+
+    request_data = {'user_id': user_id, 'summoner': summoner_id}
+    add_summoner_to_user = requests.put(discord_users_url, data=request_data) 
+
     if username not in ACTIVE_PLAYERS:
         ACTIVE_PLAYERS.append(username)
         response = f"{username} has been added to the list of active players."
