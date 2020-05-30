@@ -45,10 +45,13 @@ class RiotApi:
 
 class Summoner(object):
     """Object containing all the data for a player or Summoner """
-    def __init__(self, name):
+    def __init__(self, _id=None, name=None):
         super(Summoner, self).__init__()
 
-        details = RiotApi.get_summoner_by_name(name)
+        if _id:
+            details = RiotApi.get_summoner_by_id(_id)
+        elif name:
+            details = RiotApi.get_summoner_by_name(name)
 
         self._id = details['summoner_id']
         self.account_id = details['account_id']
