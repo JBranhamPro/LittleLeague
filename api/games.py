@@ -5,11 +5,12 @@ class Game():
     def __init__(self, unique_id):
         super(Game, self).__init__()
         self._id = unique_id
+        self.bench = []
+        self.coaches = []
         self.host = None
         self.start_time = None
-        self.teams = []
         self.summoners = []
-        self.bench = []
+        self.teams = []
 
     def add_summoner(self, summoner):
         list_of_summoners = list(self.summoners.keys())

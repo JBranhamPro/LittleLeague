@@ -4,17 +4,19 @@ import pymongo
 
 from api.app import config
 
+DB = LocalStore()
 LOGGER = logging.getLogger('ll_db_log')
 
 
-class InMemDB(object):
-    """docstring for InMemDB"""
+class LocalStore(object):
+    """docstring for LocalStore"""
     def __init__(self, arg):
-        super(InMemDB, self).__init__()
+        super(LocalStore, self).__init__()
         self.games = {}
         self.users = {}
 
     # TODO: Need to add validation to this method when we move to a real database
+
     # insert new user into the Little League database
     # Returns True if the user was added or already in the database
     # Returns False if they could not be added
