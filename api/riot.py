@@ -3,7 +3,7 @@ import requests
 import config
 # TODO: Need to add riot_api_key to config
 
-LOGGER = logging.getLogger('flask_logger')
+LOGGER = logging.getLogger('ll_api_logger')
 
 
 class RiotApi:

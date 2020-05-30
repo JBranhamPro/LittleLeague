@@ -4,10 +4,9 @@ from concurrent_log_handler import ConcurrentRotatingFileHandler
 from flask import Flask
 from flask_restful import Api, Resource
 
-from . import config as props
 from . import resources
 
-LOGGER = logging.getLogger('flask_logger')
+LOGGER = logging.getLogger('ll_api_logger')
 LOGGER.setLevel(logging.DEBUG)
 
 FORMATTER = logging.Formatter('%(asctime)s: %(levelname)s: %(module)s: %(message)s')
@@ -23,4 +22,4 @@ for resource in resources.RESOURCES:
     API.add_resource(resource, resource.endpoint)
 
 if __name__ == '__main__':
-    APP.run(host=props.DevHost.ip, port=props.DevHost.port, debug=True)
+    APP.run(host=props.DevServer.ip, port=props.DevServer.port, debug=True)
