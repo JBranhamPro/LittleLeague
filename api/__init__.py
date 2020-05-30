@@ -1,13 +1,10 @@
-from concurrent_log_handler import ConcurrentRotatingFileHandler
 from flask import Flask
 from flask_restful import Api, Resource
 
-from . import config as props
-from . import resources
+from .resources import RESOURCES
 
 APP = Flask(__name__)
 API = Api(APP)
-DB = db.InMemDB
 
-for resource in resources.RESOURCES:
+for resource in RESOURCES:
     API.add_resource(resource, resource.endpoint)
